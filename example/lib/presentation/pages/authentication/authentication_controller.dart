@@ -29,30 +29,42 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:example/presentation/bindings/main_bindings.dart';
-import 'package:example/presentation/router/app_pages.dart';
+import 'package:domain/domain.dart';
+import 'package:example/presentation/pages/authentication/authentication_arguments.dart';
 import 'package:example/presentation/router/app_routes.dart';
-import 'package:example/presentation/utils/logger/app_logger.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:example/presentation/utils/logger/app_toast.dart';
 import 'package:get/get.dart';
 
-void main() {
-  runApp(MyApp());
-}
+class AuthenticationController extends GetxController {
+  final GetAuthorizedInteractor _getAuthorizedInteractor;
+  final DeletePermanentTokenInteractor deletePermanentTokenInteractor;
+  final appToast = Get.find<AppToast>();
+  AuthenticationArguments _authenticationArguments;
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  AuthenticationController(
+      this._getAuthorizedInteractor,
+      this.deletePermanentTokenInteractor
+  ) {
+    _authenticationArguments = Get.arguments;
+    _getAuthorizedUser();
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      enableLog: true,
-      logWriterCallback: Logger.write,
-      initialBinding: MainBindings(),
-      initialRoute: AppRoutes.SPLASH,
-      getPages: AppPages.pages,
-    );
+  void _getAuthorizedUser() {
+    _getAuthorizedUserAction();
+  }
+
+  void _getAuthorizedUserAction() async {
+    await _getAuthorizedInteractor.execute()
+      .then((result) => result.fold(
+        (failure) => _getAuthorizedUserFailure(failure),
+        (success) => _getAuthorizedUserSuccess(success)));
+  }
+
+  void _getAuthorizedUserSuccess(GetAuthorizedUserSuccess success) {
+    Get.offNamed(AppRoutes.HOME, arguments: success.user);
+  }
+
+  void _getAuthorizedUserFailure(GetAuthorizedUserFailure failure) {
+    appToast.showErrorToast(failure.toString());
   }
 }

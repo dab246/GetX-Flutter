@@ -29,30 +29,16 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:example/presentation/bindings/main_bindings.dart';
-import 'package:example/presentation/router/app_pages.dart';
-import 'package:example/presentation/router/app_routes.dart';
-import 'package:example/presentation/utils/logger/app_logger.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'dart:core';
 
-void main() {
-  runApp(MyApp());
-}
+import 'package:example/presentation/utils/assets/app_assets_paths.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+class AppImagePaths {
+  String get icLoginLogo => _getImagePath('ic_login_logo.png');
+  String get icDelete => _getImagePath('ic_delete.svg');
+  String get icLinShareLogo => _getImagePath('ic_linshare_logo.svg');
 
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      enableLog: true,
-      logWriterCallback: Logger.write,
-      initialBinding: MainBindings(),
-      initialRoute: AppRoutes.SPLASH,
-      getPages: AppPages.pages,
-    );
+  String _getImagePath(String imageName) {
+    return AppAssetsPaths.images + imageName;
   }
 }

@@ -29,30 +29,28 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:example/presentation/bindings/main_bindings.dart';
-import 'package:example/presentation/router/app_pages.dart';
-import 'package:example/presentation/router/app_routes.dart';
-import 'package:example/presentation/utils/logger/app_logger.dart';
-import 'package:flutter/foundation.dart';
+import 'package:example/presentation/utils/extensions/color_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-void main() {
-  runApp(MyApp());
-}
+class AppToast {
+  void showToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        fontSize: 16,
+        textColor: Colors.white,
+        backgroundColor: AppColor.toastBackgroundColor,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM);
+  }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      enableLog: true,
-      logWriterCallback: Logger.write,
-      initialBinding: MainBindings(),
-      initialRoute: AppRoutes.SPLASH,
-      getPages: AppPages.pages,
-    );
+  void showErrorToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        fontSize: 16,
+        textColor: Colors.white,
+        backgroundColor: AppColor.toastErrorBackgroundColor,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM);
   }
 }

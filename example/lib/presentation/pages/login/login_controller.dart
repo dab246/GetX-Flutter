@@ -29,30 +29,54 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:example/presentation/bindings/main_bindings.dart';
-import 'package:example/presentation/router/app_pages.dart';
+import 'package:domain/domain.dart';
+import 'package:example/presentation/pages/authentication/authentication_arguments.dart';
 import 'package:example/presentation/router/app_routes.dart';
-import 'package:example/presentation/utils/logger/app_logger.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:example/presentation/utils/extensions/url_extension.dart';
+import 'package:example/presentation/utils/logger/app_toast.dart';
 import 'package:get/get.dart';
 
-void main() {
-  runApp(MyApp());
-}
+class LoginController extends GetxController {
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  final CreatePermanentTokenInteractor _getPermanentTokenInteractor;
+  final appToast = Get.find<AppToast>();
 
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      enableLog: true,
-      logWriterCallback: Logger.write,
-      initialBinding: MainBindings(),
-      initialRoute: AppRoutes.SPLASH,
-      getPages: AppPages.pages,
-    );
+  String _urlText = '';
+  String _emailText = '';
+  String _passwordText = '';
+
+  LoginController(
+    this._getPermanentTokenInteractor,
+  );
+
+  void setUrlText(String url) => _urlText = url.formatURLValid();
+
+  void setEmailText(String email) => _emailText = email;
+
+  void setPasswordText(String password) => _passwordText = password;
+
+  Uri _parseUri(String url) => Uri.parse(url);
+
+  UserName _parseUserName(String userName) => UserName(userName);
+
+  Password _parsePassword(String password) => Password(password);
+
+  void handleLoginPressed() {
+    _loginAction(_parseUri(_urlText), _parseUserName(_emailText), _parsePassword(_passwordText));
+  }
+
+  void _loginAction(Uri baseUrl, UserName userName, Password password) async {
+    await _getPermanentTokenInteractor.execute(baseUrl, userName, password)
+      .then((result) => result.fold(
+        (failure) => _loginFailureAction(failure),
+        (success) => _loginSuccessAction(success)));
+  }
+
+  void _loginSuccessAction(CreatePermanentTokenSuccess success) {
+    Get.offNamed(AppRoutes.AUTHENTICATION, arguments: AuthenticationArguments(_parseUri(_urlText)));
+  }
+
+  void _loginFailureAction(CreatePermanentTokenFailure failure) async {
+    appToast.showErrorToast(failure.toString());
   }
 }

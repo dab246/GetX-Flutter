@@ -29,30 +29,23 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:example/presentation/bindings/main_bindings.dart';
-import 'package:example/presentation/router/app_pages.dart';
-import 'package:example/presentation/router/app_routes.dart';
-import 'package:example/presentation/utils/logger/app_logger.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:example/presentation/pages/authentication/authentication_controller.dart';
+import 'package:example/presentation/utils/extensions/color_extension.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+class AuthenticationView extends GetView<AuthenticationController> {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      enableLog: true,
-      logWriterCallback: Logger.write,
-      initialBinding: MainBindings(),
-      initialRoute: AppRoutes.SPLASH,
-      getPages: AppPages.pages,
+    return Container(
+      color: AppColor.primaryColor,
+      child: SizedBox(
+        width: 100,
+        height: 100,
+        child: CupertinoActivityIndicator(),
+      ),
     );
   }
 }

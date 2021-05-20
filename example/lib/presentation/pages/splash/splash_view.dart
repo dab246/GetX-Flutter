@@ -29,30 +29,42 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:example/presentation/bindings/main_bindings.dart';
-import 'package:example/presentation/router/app_pages.dart';
-import 'package:example/presentation/router/app_routes.dart';
-import 'package:example/presentation/utils/logger/app_logger.dart';
-import 'package:flutter/foundation.dart';
+import 'package:example/presentation/pages/login/login_view.dart';
+import 'package:example/presentation/utils/assets/app_image_paths.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'splash_controller.dart';
 
-void main() {
-  runApp(MyApp());
-}
+class SplashView extends GetWidget<SplashController> {
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  final imagePath = Get.find<AppImagePaths>();
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      enableLog: true,
-      logWriterCallback: Logger.write,
-      initialBinding: MainBindings(),
-      initialRoute: AppRoutes.SPLASH,
-      getPages: AppPages.pages,
+    return Scaffold(
+      backgroundColor: Colors.blue,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+              alignment: Alignment.center,
+              child: SvgPicture.asset(
+                imagePath.icLinShareLogo,
+                width: 100,
+                height: 50,
+                fit: BoxFit.fill,
+                alignment: Alignment.centerLeft,
+              )).paddingOnly(top: Get.mediaQuery.size.height * 0.4),
+          Spacer(),
+          SizedBox(
+            key: Key('splash_loading_icon'),
+            width: 40,
+            height: 40,
+            child: CircularProgressIndicator(backgroundColor: Colors.white),
+          ).paddingOnly(bottom: 80.0)
+        ],
+      ),
     );
   }
 }

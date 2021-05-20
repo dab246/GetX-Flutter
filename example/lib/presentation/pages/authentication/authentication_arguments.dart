@@ -1,7 +1,7 @@
 // LinShare is an open source filesharing software, part of the LinPKI software
 // suite, developed by Linagora.
 //
-// Copyright (C) 2020 LINAGORA
+// Copyright (C) 2021 LINAGORA
 //
 // This program is free software: you can redistribute it and/or modify it under the
 // terms of the GNU Affero General Public License as published by the Free Software
@@ -11,7 +11,7 @@
 // subsections (b), (c), and (e), pursuant to which you must notably (i) retain the
 // display in the interface of the “LinShare™” trademark/logo, the "Libre & Free" mention,
 // the words “You are using the Free and Open Source version of LinShare™, powered by
-// Linagora © 2009–2020. Contribute to Linshare R&D by subscribing to an Enterprise
+// Linagora © 2009–2021. Contribute to Linshare R&D by subscribing to an Enterprise
 // offer!”. You must also retain the latter notice in all asynchronous messages such as
 // e-mails sent with the Program, (ii) retain all hypertext links between LinShare and
 // http://www.linshare.org, between linagora.com and Linagora, and (iii) refrain from
@@ -29,30 +29,10 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:example/presentation/bindings/main_bindings.dart';
-import 'package:example/presentation/router/app_pages.dart';
-import 'package:example/presentation/router/app_routes.dart';
-import 'package:example/presentation/utils/logger/app_logger.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:example/presentation/router/router_arguments.dart';
 
-void main() {
-  runApp(MyApp());
-}
+class AuthenticationArguments extends RouterArguments {
+  final Uri baseUrl;
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      enableLog: true,
-      logWriterCallback: Logger.write,
-      initialBinding: MainBindings(),
-      initialRoute: AppRoutes.SPLASH,
-      getPages: AppPages.pages,
-    );
-  }
+  AuthenticationArguments(this.baseUrl);
 }

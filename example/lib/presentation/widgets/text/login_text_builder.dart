@@ -17,7 +17,8 @@
 // http://www.linshare.org, between linagora.com and Linagora, and (iii) refrain from
 // infringing Linagora intellectual property rights over its trademarks and commercial
 // brands. Other Additional Terms apply, see
-// <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf>
+// <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf
+//
 // for more details.
 // This program is distributed in the hope that it will be useful, but WITHOUT ANY
 // WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
@@ -25,34 +26,63 @@
 // more details.
 // You should have received a copy of the GNU Affero General Public License and its
 // applicable Additional Terms for LinShare along with this program. If not, see
-// <http://www.gnu.org/licenses/> for the GNU Affero General Public License version
-//  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
-//  the Additional Terms applicable to LinShare software.
+// <http://www.gnu.org/licenses
+// for the GNU Affero General Public License version
+//
+// 3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf
+// for
+//
+// the Additional Terms applicable to LinShare software.
 
-import 'package:example/presentation/bindings/main_bindings.dart';
-import 'package:example/presentation/router/app_pages.dart';
-import 'package:example/presentation/router/app_routes.dart';
-import 'package:example/presentation/utils/logger/app_logger.dart';
-import 'package:flutter/foundation.dart';
+import 'package:example/presentation/utils/extensions/color_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-void main() {
-  runApp(MyApp());
-}
+class LoginTextBuilder {
+  Key _key;
+  ValueChanged<String> _onTextChange;
+  TextStyle _textStyle;
+  TextInputAction _textInputAction;
+  InputDecoration _inputDecoration;
+  bool _obscureText;
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  LoginTextBuilder key(Key key) {
+    _key = key;
+    return this;
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      enableLog: true,
-      logWriterCallback: Logger.write,
-      initialBinding: MainBindings(),
-      initialRoute: AppRoutes.SPLASH,
-      getPages: AppPages.pages,
+  LoginTextBuilder onChange(ValueChanged<String> onChange) {
+    _onTextChange = onChange;
+    return this;
+  }
+
+  LoginTextBuilder textStyle(TextStyle style) {
+    _textStyle = style;
+    return this;
+  }
+
+  LoginTextBuilder textInputAction(TextInputAction inputAction) {
+    _textInputAction = inputAction;
+    return this;
+  }
+
+  LoginTextBuilder textDecoration(InputDecoration inputDecoration) {
+    _inputDecoration = inputDecoration;
+    return this;
+  }
+
+  LoginTextBuilder obscureText(bool obscureText) {
+    _obscureText = obscureText;
+    return this;
+  }
+
+  TextField build() {
+    return TextField(
+      key: _key,
+      onChanged: _onTextChange,
+      textInputAction: _textInputAction,
+      decoration: _inputDecoration,
+      style: _textStyle ?? TextStyle(color: AppColor.loginTextFieldTextColor),
+      obscureText: _obscureText ?? false,
     );
   }
 }

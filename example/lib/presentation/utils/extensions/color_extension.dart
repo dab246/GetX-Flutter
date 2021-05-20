@@ -29,30 +29,19 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:example/presentation/bindings/main_bindings.dart';
-import 'package:example/presentation/router/app_pages.dart';
-import 'package:example/presentation/router/app_routes.dart';
-import 'package:example/presentation/utils/logger/app_logger.dart';
-import 'package:flutter/foundation.dart';
+import 'dart:ui' show Color;
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      enableLog: true,
-      logWriterCallback: Logger.write,
-      initialBinding: MainBindings(),
-      initialRoute: AppRoutes.SPLASH,
-      getPages: AppPages.pages,
-    );
-  }
+extension AppColor on Color {
+  static const primaryColor = Color(0xff4AC6FF);
+  static const loginTextFieldLabelColor = Color(0xff7B7B7B);
+  static const loginTextFieldHintColor = Color(0xff7B7B7B);
+  static const loginTextFieldTextColor = Color(0xff7B7B7B);
+  static const loginTextFieldErrorBorder = Color(0xffFF5858);
+  static const loginTextFieldFocusedBorder = Color(0xff1B7EC7);
+  static const loginButtonColor = Color(0xff1B7EC7);
+  static const toastBackgroundColor = Color(0xff1B7EC7);
+  static const toastErrorBackgroundColor = Color(0xffFF5858);
+  static const documentModifiedDateItemTextColor = Color(0xffACACAC);
+  static const documentNameItemTextColor = Color(0xff7B7B7B);
 }

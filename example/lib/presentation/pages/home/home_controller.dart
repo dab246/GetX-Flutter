@@ -29,30 +29,20 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:example/presentation/bindings/main_bindings.dart';
-import 'package:example/presentation/router/app_pages.dart';
-import 'package:example/presentation/router/app_routes.dart';
-import 'package:example/presentation/utils/logger/app_logger.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:domain/domain.dart';
 import 'package:get/get.dart';
 
-void main() {
-  runApp(MyApp());
-}
+class HomeController extends GetxController {
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  var user = User.empty().obs;
 
   @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      enableLog: true,
-      logWriterCallback: Logger.write,
-      initialBinding: MainBindings(),
-      initialRoute: AppRoutes.SPLASH,
-      getPages: AppPages.pages,
-    );
+  void onInit() {
+    super.onInit();
+    user = Get.arguments;
+  }
+
+  void logout() {
+
   }
 }
