@@ -1,4 +1,4 @@
-# Day 1. GetX Overview
+# GetX Overview
 
 ## Install
 
