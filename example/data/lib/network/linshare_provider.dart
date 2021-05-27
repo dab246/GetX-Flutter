@@ -48,6 +48,7 @@ class LinShareProvider extends GetConnect {
 
     httpClient.addResponseModifier((request, response) {
       _extractSessionIdFromHeader(response.headers);
+      return response;
     });
   }
 
@@ -67,15 +68,10 @@ class LinShareProvider extends GetConnect {
       String password,
       PermanentTokenBodyRequest bodyRequest) async {
     final basicAuth = 'Basic ' + base64Encode(utf8.encode('$userName:$password'));
-    //
-    // httpClient.addAuthenticator((request) async {
-    //   request.headers[HttpHeaders.authorizationHeader] = basicAuth;
-    //   return request;
-    // });
 
     final resultJson = await post(
         Endpoint.authentication.generateAuthenticationUrl(authenticateUrl),
-        bodyRequest,
+        bodyRequest.toJson(),
         headers: {
           HttpHeaders.acceptHeader: 'application/json',
           HttpHeaders.authorizationHeader: basicAuth
@@ -90,10 +86,7 @@ class LinShareProvider extends GetConnect {
 
   Future<bool> deletePermanentToken(PermanentToken token) async {
     final deletedToken = await delete(
-      Endpoint.authentication.withPathParameter(token.tokenId.uuid).generateEndpointPath(),
-      headers: {
-        HttpHeaders.contentTypeHeader: 'application/json'
-      });
+      Endpoint.authentication.withPathParameter(token.tokenId.uuid).generateEndpointPath());
 
     if (deletedToken.status.hasError) {
       return Future.error(deletedToken.status);

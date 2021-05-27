@@ -36,7 +36,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'splash_controller.dart';
 
-class SplashView extends GetWidget<SplashController> {
+class SplashView extends GetView<SplashController> {
 
   final imagePath = Get.find<AppImagePaths>();
 

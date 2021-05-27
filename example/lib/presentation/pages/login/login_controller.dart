@@ -36,6 +36,13 @@ import 'package:example/presentation/utils/extensions/url_extension.dart';
 import 'package:example/presentation/utils/logger/app_toast.dart';
 import 'package:get/get.dart';
 
+enum LoginState {
+  IDLE,
+  LOADING,
+  SUCCESS,
+  FAILURE
+}
+
 class LoginController extends GetxController {
 
   final CreatePermanentTokenInteractor _getPermanentTokenInteractor;
@@ -44,6 +51,8 @@ class LoginController extends GetxController {
   String _urlText = '';
   String _emailText = '';
   String _passwordText = '';
+
+  var loginState = LoginState.IDLE.obs;
 
   LoginController(
     this._getPermanentTokenInteractor,
@@ -66,6 +75,7 @@ class LoginController extends GetxController {
   }
 
   void _loginAction(Uri baseUrl, UserName userName, Password password) async {
+    loginState(LoginState.LOADING);
     await _getPermanentTokenInteractor.execute(baseUrl, userName, password)
       .then((result) => result.fold(
         (failure) => _loginFailureAction(failure),
@@ -73,10 +83,12 @@ class LoginController extends GetxController {
   }
 
   void _loginSuccessAction(CreatePermanentTokenSuccess success) {
+    loginState(LoginState.SUCCESS);
     Get.offNamed(AppRoutes.AUTHENTICATION, arguments: AuthenticationArguments(_parseUri(_urlText)));
   }
 
   void _loginFailureAction(CreatePermanentTokenFailure failure) async {
+    loginState(LoginState.FAILURE);
     appToast.showErrorToast(failure.toString());
   }
 }

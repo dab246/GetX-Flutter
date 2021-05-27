@@ -115,7 +115,9 @@ class LoginView extends GetView<LoginController> {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 67),
-                          child: loginButton(context)
+                          child: Obx(() => controller.loginState.value == LoginState.LOADING
+                            ? loadingCircularProgress()
+                            : loginButton(context))
                         )
                       ],
                     ),
