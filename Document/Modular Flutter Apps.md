@@ -10,3 +10,7 @@
 [3. Federated plugin implementations](https://docs.google.com/document/d/1LD7QjmzJZLCopUrFAAE98wOUQpjmguyGTN2wd_89Srs/edit#)
 
 [4. Flutter modular app](https://github.com/Vanethos/flutter_modular_app)
+
+[5. Flutter: Mastering Modularization — In Several Ways](https://medium.com/flutter-community/mastering-flutter-modularization-in-several-ways-f5bced19101a)
+
+[6. Using Clean Architecture in Flutter](https://codeburst.io/using-clean-architecture-in-flutter-d0437d0c7f87)
