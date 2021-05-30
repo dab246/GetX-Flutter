@@ -1,3 +1,3 @@
-# example
+# Chatting use Socket IO
 
-A Example Flutter project using Clean Architecture with GetX
+Demo app chat use Adhara Socket IO
