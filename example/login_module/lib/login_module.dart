@@ -28,14 +28,15 @@
 // <http://www.gnu.org/licenses/> for the GNU Affero General Public License version
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
+library login_module;
 
-import 'package:equatable/equatable.dart';
+// Utils
+export 'utils/login_manager.dart';
 
-class UserId with EquatableMixin {
-  final String uuid;
+// Widget Builder
+export 'widget_builder/login_text_builder.dart';
 
-  UserId(this.uuid);
-
-  @override
-  List<Object> get props => [uuid];
-}
+// Presentation
+export 'presentation/bindings/login_bindings.dart';
+export 'presentation/ui/login_view.dart';
+export 'presentation/ui/login_controller.dart';

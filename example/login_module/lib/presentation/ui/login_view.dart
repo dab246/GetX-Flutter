@@ -29,13 +29,12 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:example/presentation/pages/login/login_controller.dart';
-import 'package:example/presentation/utils/assets/app_image_paths.dart';
-import 'package:example/presentation/utils/extensions/color_extension.dart';
-import 'package:example/presentation/widgets/text/input_decoration_builder.dart';
-import 'package:example/presentation/widgets/text/login_text_builder.dart';
+import 'package:base_module/base_module.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login_module/login_module.dart';
+
+import 'login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
 
@@ -80,7 +79,7 @@ class LoginView extends GetView<LoginController> {
                             padding: EdgeInsets.symmetric(horizontal: 40),
                             child: LoginTextBuilder()
                                 .key(Key('login_url_input'))
-                                .onChange((value) => controller.setUrlText(value))
+                                .onChange((value) => {})
                                 .textInputAction(TextInputAction.next)
                                 .textDecoration(_buildUrlInputDecoration())
                                 .build()
@@ -92,7 +91,7 @@ class LoginView extends GetView<LoginController> {
                             padding: EdgeInsets.symmetric(horizontal: 40),
                             child: LoginTextBuilder()
                                 .key(Key('login_email_input'))
-                                .onChange((value) => controller.setEmailText(value))
+                                .onChange((value) => {})
                                 .textInputAction(TextInputAction.next)
                                 .textDecoration(_buildCredentialInputDecoration('email', 'email'))
                                 .build()
@@ -105,7 +104,7 @@ class LoginView extends GetView<LoginController> {
                             child: LoginTextBuilder()
                                 .key(Key('login_password_input'))
                                 .obscureText(true)
-                                .onChange((value) => controller.setPasswordText(value))
+                                .onChange((value) => {})
                                 .textInputAction(TextInputAction.done)
                                 .textDecoration(_buildCredentialInputDecoration('password', 'password'))
                                 .build()
@@ -114,10 +113,10 @@ class LoginView extends GetView<LoginController> {
                           height: 32,
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 67),
-                          child: Obx(() => controller.loginState.value == LoginState.LOADING
-                            ? loadingCircularProgress()
-                            : loginButton(context))
+                            padding: EdgeInsets.symmetric(horizontal: 67),
+                            child: Obx(() => controller.loginState.value == LoginState.LOADING
+                                ? loadingCircularProgress()
+                                : loginButton(context))
                         )
                       ],
                     ),
@@ -133,8 +132,8 @@ class LoginView extends GetView<LoginController> {
 
   InputDecoration _buildUrlInputDecoration() {
     final loginInputDecorationBuilder = LoginInputDecorationBuilder()
-      .labelText('https://')
-      .prefixText('https://');
+        .labelText('https://')
+        .prefixText('https://');
     return loginInputDecorationBuilder.build();
   }
 
@@ -165,7 +164,6 @@ class LoginView extends GetView<LoginController> {
         ),
         onPressed: () {
           FocusScope.of(context).unfocus();
-          controller.handleLoginPressed();
         },
         color: AppColor.loginButtonColor,
         textColor: Colors.white,

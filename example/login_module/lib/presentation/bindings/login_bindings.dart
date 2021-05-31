@@ -29,10 +29,12 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-abstract class CredentialRepository {
-  Future saveBaseUrl(Uri baseUrl);
+import 'package:get/get.dart';
+import 'package:login_module/login_module.dart';
 
-  Future removeBaseUrl();
-
-  Future<Uri> getBaseUrl();
+class LoginBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.put(LoginController());
+  }
 }
