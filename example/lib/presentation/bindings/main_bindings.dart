@@ -29,93 +29,15 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:data/data.dart';
-import 'package:data/utils/device_manager.dart';
-import 'package:device_info/device_info.dart';
-import 'package:domain/domain.dart';
-import 'package:example/presentation/utils/assets/app_image_paths.dart';
-import 'package:example/presentation/utils/logger/app_toast.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:base_module/base_module.dart';
 
 class MainBindings extends Bindings {
 
   @override
   void dependencies() {
-    _bindingsAppToast();
-    _bindingsProvider();
-    _bindingsRemoteExceptionThrower();
-    _bindingsAppImagePaths();
-    _bindingsDeviceManager();
-    _bindingsSharePreference();
-    _bindingsDataSourceImpl();
-    _bindingsDataSource();
-    _bindingsRepositoryImpl();
-    _bindingsRepository();
-    _bindingsInteractor();
-  }
-
-  void _bindingsAppToast() {
     Get.put(AppToast());
-  }
-
-  void _bindingsRemoteExceptionThrower() {
-    Get.lazyPut(() => RemoteExceptionThrower());
-  }
-
-  void _bindingsProvider() {
-    Get.lazyPut(() => LinShareProvider());
-  }
-
-  void _bindingsAppImagePaths() {
+    Get.put(AppAssetsPaths());
     Get.put(AppImagePaths());
-  }
-
-  void _bindingsDeviceManager() {
-    Get.lazyPut(() => DeviceInfoPlugin());
-    Get.lazyPut(() => DeviceManager(Get.find<DeviceInfoPlugin>()));
-  }
-
-  void _bindingsSharePreference() {
-    Get.putAsync(() => SharedPreferences.getInstance());
-  }
-
-  void _bindingsDataSource() {
-    Get.lazyPut<AuthenticationDataSource>(() => Get.find<AuthenticationDataSourceImpl>());
-  }
-
-  void _bindingsDataSourceImpl() {
-    Get.lazyPut(() => AuthenticationDataSourceImpl(
-        Get.find<LinShareProvider>(),
-        Get.find<DeviceManager>(),
-        Get.find<RemoteExceptionThrower>()));
-  }
-
-  void _bindingsRepository() {
-    Get.lazyPut<TokenRepository>(() => Get.find<TokenRepositoryImpl>());
-    Get.lazyPut<CredentialRepository>(() => Get.find<CredentialRepositoryImpl>());
-    Get.lazyPut<AuthenticationRepository>(() => Get.find<AuthenticationRepositoryImpl>());
-  }
-
-  void _bindingsRepositoryImpl() {
-    Get.lazyPut(() => TokenRepositoryImpl(Get.find<SharedPreferences>()));
-    Get.lazyPut(() => CredentialRepositoryImpl(Get.find<SharedPreferences>()));
-    Get.lazyPut(() => AuthenticationRepositoryImpl(Get.find<AuthenticationDataSource>()));
-  }
-
-  void _bindingsInteractor() {
-    Get.lazyPut(() => CreatePermanentTokenInteractor(
-        Get.find<AuthenticationRepository>(),
-        Get.find<TokenRepository>(),
-        Get.find<CredentialRepository>(),
-    ));
-    Get.lazyPut(() => GetAuthorizedInteractor(
-      Get.find<AuthenticationRepository>(),
-    ));
-    Get.lazyPut(() => DeletePermanentTokenInteractor(
-      Get.find<AuthenticationRepository>(),
-      Get.find<TokenRepository>(),
-      Get.find<CredentialRepository>(),
-    ));
   }
 }

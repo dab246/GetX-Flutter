@@ -29,7 +29,41 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:example/presentation/ui/app.dart';
+import 'package:example/presentation/ui/pages/splash/splash_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:base_module/base_module.dart';
 
-void main() => runApp(MyApp());
+class SplashView extends GetView<SplashController> {
+
+  final imagePath = Get.find<AppImagePaths>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.blue,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+              alignment: Alignment.center,
+              child: SvgPicture.asset(
+                imagePath.icSplashLogo,
+                width: 100,
+                height: 50,
+                fit: BoxFit.fill,
+                alignment: Alignment.centerLeft,
+              )).paddingOnly(top: Get.mediaQuery.size.height * 0.4),
+          Spacer(),
+          SizedBox(
+            key: Key('splash_loading_icon'),
+            width: 40,
+            height: 40,
+            child: CircularProgressIndicator(backgroundColor: Colors.white),
+          ).paddingOnly(bottom: 80.0)
+        ],
+      ),
+    );
+  }
+}

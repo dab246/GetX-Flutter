@@ -29,7 +29,16 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:example/presentation/ui/app.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-void main() => runApp(MyApp());
+import 'home_controller.dart';
+
+class HomeView extends GetView<HomeController> {
+
+  @override
+  Widget build(BuildContext context) {
+
+  }
+
+}
