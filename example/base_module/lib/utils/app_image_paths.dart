@@ -29,19 +29,15 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:equatable/equatable.dart';
+import 'dart:core';
 
-class QuotaId with EquatableMixin {
-  final String uuid;
+import 'app_assets_paths.dart';
 
-  QuotaId(this.uuid);
+class AppImagePaths {
+  String get icLoginLogo => _getImagePath('ic_login_logo.png');
+  String get icSplashLogo => _getImagePath('ic_splash_logo.svg');
 
-  factory QuotaId.initial() {
-    return QuotaId('');
+  String _getImagePath(String imageName) {
+    return AppAssetsPaths.images + imageName;
   }
-
-  @override
-  List<Object> get props => [
-    uuid
-  ];
 }

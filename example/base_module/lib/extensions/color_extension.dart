@@ -28,19 +28,21 @@
 // <http://www.gnu.org/licenses/> for the GNU Affero General Public License version
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
-//
 
-import 'dart:convert';
+import 'dart:ui' show Color;
 
-import 'package:domain/domain.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:flutter/material.dart';
 
-class AccountIdConverter implements JsonConverter<AccountId, String> {
-  const AccountIdConverter();
+extension AppColor on Color {
+  static const primaryColor = Color(0xff4AC6FF);
 
-  @override
-  AccountId fromJson(String json) => AccountId(json);
+  static const loginTextFieldLabelColor = Color(0xff7B7B7B);
+  static const loginTextFieldHintColor = Color(0xff7B7B7B);
+  static const loginTextFieldTextColor = Color(0xff7B7B7B);
+  static const loginTextFieldErrorBorder = Color(0xffFF5858);
+  static const loginTextFieldFocusedBorder = Color(0xff1B7EC7);
+  static const loginButtonColor = Color(0xff1B7EC7);
 
-  @override
-  String toJson(AccountId object) => jsonEncode(object.uuid);
+  static const toastBackgroundColor = Color(0xff1B7EC7);
+  static const toastErrorBackgroundColor = Color(0xffFF5858);
 }

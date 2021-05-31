@@ -29,28 +29,22 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:domain/domain.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+library base_module;
 
-class CredentialRepositoryImpl extends CredentialRepository {
-  final SharedPreferences sharedPreferences;
+// Widget Builder
+export 'widget_builders/text_builder.dart';
+export 'widget_builders/input_decoration_builder.dart';
 
-  final keyBaseUrl = 'KEY_BASE_URL';
+// Widget
+export 'widgets/loading_widget.dart';
 
-  CredentialRepositoryImpl(this.sharedPreferences);
+// Utils
+export 'utils/app_image_paths.dart';
+export 'utils/app_assets_paths.dart';
 
-  @override
-  Future<Uri> getBaseUrl() async {
-    return Uri.parse(sharedPreferences.getString(keyBaseUrl));
-  }
+// Logger
+export 'loggers/app_toast.dart';
 
-  @override
-  Future saveBaseUrl(Uri baseUrl) async {
-    await sharedPreferences.setString(keyBaseUrl, baseUrl.origin);
-  }
+// Extension
+export 'extensions/color_extension.dart';
 
-  @override
-  Future removeBaseUrl() async {
-    await sharedPreferences.remove(keyBaseUrl);
-  }
-}
