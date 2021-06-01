@@ -1,0 +1,49 @@
+name: moviecatalogue
+description: A new Flutter application.
+version: 1.2.1+4
+
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # This is our modular
+  core:
+    path: libraries/core
+  dependencies:
+    path: libraries/dependencies
+  shared:
+    path: libraries/shared
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_driver:
+    sdk: flutter
+  test: any
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/movie_icon.png"
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/json/
+
+  fonts:
+    - family: IBMPlexSans
+      fonts:
+        - asset: assets/fonts/IBMPlexSans-Regular.ttf
+        - asset: assets/fonts/IBMPlexSans-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/IBMPlexSans-Italic.ttf
+          style: italic
+        - asset: assets/fonts/IBMPlexSans-Light.ttf
+          weight: 300
+        - asset: assets/fonts/IBMPlexSans-SemiBold.ttf
+          weight: 600
