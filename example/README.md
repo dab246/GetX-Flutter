@@ -1,3 +1,8 @@
-# example
+# Deploy App Chat
 
-A Example Flutter project using Clean Architecture with GetX
+App Chat using: 
+
+- Clean Architecture
+- GetX
+- Modulation
+- SocketIO
