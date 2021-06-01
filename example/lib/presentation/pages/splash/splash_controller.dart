@@ -31,7 +31,7 @@
 
 import 'dart:async';
 
-import 'package:example/presentation/router/app_routes.dart';
+import 'package:base_module/base_module.dart';
 import 'package:get/get.dart';
 
 class SplashController extends GetxController {

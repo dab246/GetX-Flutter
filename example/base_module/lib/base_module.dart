@@ -48,3 +48,5 @@ export 'loggers/app_toast.dart';
 // Extension
 export 'extensions/color_extension.dart';
 
+// Routes
+export 'routes/app_routes.dart';

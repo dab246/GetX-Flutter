@@ -29,8 +29,10 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
+import 'package:base_module/base_module.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login_module/login_module.dart';
 
 import 'home_controller.dart';
 
@@ -38,7 +40,42 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Chat App'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Form(
+              child: LoginTextBuilder()
+                  .key(Key('message_input'))
+                  .onChange((value) => controller.setMessageText(value))
+                  .textInputAction(TextInputAction.next)
+                  .textDecoration(LoginInputDecorationBuilder().hintText("Send a message").build())
+                  .build(),
+            ),
+            StreamBuilder(
+              stream: controller.streamSocket.getResponse,
+              builder: (context, snapshot) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 24.0),
+                  child: Text(snapshot.hasData
+                      ? '${String.fromCharCodes(snapshot.data)}'
+                      : ''),
+                );
+              },
+            )
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => controller.sendMessage(),
+        tooltip: 'Send message',
+        child: Icon(Icons.send),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
   }
-
 }

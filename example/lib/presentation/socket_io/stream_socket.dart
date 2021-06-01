@@ -29,8 +29,16 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:get/get.dart';
+import 'dart:async';
 
-class HomeController extends GetxController {
+class StreamSocket {
+  final _socketResponse = StreamController<String>();
 
+  void Function(String) get addResponse => _socketResponse.sink.add;
+
+  Stream<String> get getResponse => _socketResponse.stream;
+
+  void dispose() {
+    _socketResponse.close();
+  }
 }

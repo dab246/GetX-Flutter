@@ -29,41 +29,53 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:example/presentation/ui/pages/splash/splash_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
+import 'package:example/presentation/socket_io/stream_socket.dart';
 import 'package:get/get.dart';
-import 'package:base_module/base_module.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
-class SplashView extends GetView<SplashController> {
+class HomeController extends GetxController {
+  StreamSocket streamSocket = StreamSocket();
+  IO.Socket socket;
 
-  final imagePath = Get.find<AppImagePaths>();
+  String _messageText = '';
+
+  void setMessageText(String message) => _messageText = message;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blue,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-              alignment: Alignment.center,
-              child: SvgPicture.asset(
-                imagePath.icSplashLogo,
-                width: 100,
-                height: 50,
-                fit: BoxFit.fill,
-                alignment: Alignment.centerLeft,
-              )).paddingOnly(top: Get.mediaQuery.size.height * 0.4),
-          Spacer(),
-          SizedBox(
-            key: Key('splash_loading_icon'),
-            width: 40,
-            height: 40,
-            child: CircularProgressIndicator(backgroundColor: Colors.white),
-          ).paddingOnly(bottom: 80.0)
-        ],
-      ),
+  void dispose() {
+    streamSocket.dispose();
+    super.dispose();
+  }
+
+  @override
+  void onInit() {
+    connectAndListen();
+    super.onInit();
+  }
+
+  void connectAndListen() {
+    socket = IO.io('http://localhost:8000',
+        IO.OptionBuilder().setTransports(['websocket']).build());
+
+    socket.onConnect((_) {
+      print('connect');
+      socket.emit('msg', 'test');
+    });
+
+    socket.on('message', (data) => streamSocket.addResponse);
+
+    socket.onDisconnect((_) => print('disconnect'));
+  }
+
+  void sendMessage() {
+    socket.emit(
+      "message",
+      {
+        "id": socket.id,
+        "message": _messageText, // Message to be sent
+        "timestamp": DateTime.now().millisecondsSinceEpoch,
+      },
     );
   }
 }

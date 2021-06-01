@@ -37,7 +37,6 @@ class MainBindings extends Bindings {
   @override
   void dependencies() {
     Get.put(AppToast());
-    Get.put(AppAssetsPaths());
     Get.put(AppImagePaths());
   }
 }

@@ -29,7 +29,21 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:example/presentation/ui/app.dart';
+import 'package:base_module/base_module.dart';
+import 'package:example/presentation/bindings/main_bindings.dart';
+import 'package:example/presentation/router/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialBinding: MainBindings(),
+        initialRoute: AppRoutes.SPLASH,
+        getPages: AppPages.pages);
+  }
+}

@@ -29,27 +29,25 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:example/presentation/router/app_routes.dart';
-import 'package:example/presentation/ui/pages/home/home_bindings.dart';
-import 'package:example/presentation/ui/pages/home/home_view.dart';
-import 'package:example/presentation/ui/pages/splash/splash_bindings.dart';
-import 'package:example/presentation/ui/pages/splash/splash_view.dart';
+import 'package:base_module/base_module.dart';
+import 'package:example/presentation/pages/home/home_bindings.dart';
+import 'package:example/presentation/pages/home/home_view.dart';
+import 'package:example/presentation/pages/splash/splash_bindings.dart';
+import 'package:example/presentation/pages/splash/splash_view.dart';
 import 'package:get/get.dart';
 import 'package:login_module/login_module.dart';
 
 class AppPages {
   static final pages = [
     GetPage(
-      name: AppRoutes.SPLASH,
-      page: () => SplashView(),
-      binding: SplashBindings()),
+        name: AppRoutes.SPLASH,
+        page: () => SplashView(),
+        binding: SplashBindings()),
     GetPage(
         name: AppRoutes.LOGIN,
         page: () => LoginView(),
         binding: LoginBindings()),
     GetPage(
-        name: AppRoutes.HOME,
-        page: () => HomeView(),
-        binding: HomeBindings()),
+        name: AppRoutes.HOME, page: () => HomeView(), binding: HomeBindings()),
   ];
 }

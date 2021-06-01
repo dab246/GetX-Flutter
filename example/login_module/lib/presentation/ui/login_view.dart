@@ -164,6 +164,7 @@ class LoginView extends GetView<LoginController> {
         ),
         onPressed: () {
           FocusScope.of(context).unfocus();
+          Get.offNamed(AppRoutes.HOME);
         },
         color: AppColor.loginButtonColor,
         textColor: Colors.white,
