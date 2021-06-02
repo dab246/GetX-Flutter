@@ -8,6 +8,7 @@ A week of playing with GetX to apply the upcoming Flutter projects
 - [3. Modular Flutter App](https://github.com/dab246/GetX-Flutter/blob/main/Document/3.%20Modular%20Flutter%20Apps.md)
 - [4. SocketIO In Flutter](https://github.com/dab246/GetX-Flutter/blob/main/Document/4.%20Socket%20IO%20In%20Flutter.md)
 - [5. Deploy App Chat Flutter](https://github.com/dab246/GetX-Flutter/blob/main/Document/5.%20Deploy%20App%20Chat%20Flutter.md)
+- [6. Micro-Services Architecture](https://github.com/dab246/GetX-Flutter/blob/main/Document/6.%20Micro-Services%20Architecture.md)
 
 # References
 
