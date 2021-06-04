@@ -43,6 +43,7 @@ class HomeController extends GetxController {
   void onInit() {
     socketIOProvider.initConnection();
     socketIOProvider.addListener();
+    socketIOProvider.addListenerByEvent('message_chat');
     super.onInit();
   }
 
@@ -51,7 +52,7 @@ class HomeController extends GetxController {
   }
 
   void sendMessage() {
-    socketIOProvider.sendMessage("CurrentTime: ${DateTime.now().millisecondsSinceEpoch}");
+    socketIOProvider.sendEvent('message', 'CurrentTime: ${DateTime.now().millisecondsSinceEpoch}');
   }
 
   @override

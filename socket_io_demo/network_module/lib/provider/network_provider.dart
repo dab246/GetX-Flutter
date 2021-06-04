@@ -34,5 +34,9 @@ abstract class NetworkProvider {
 
   void addListener();
 
+  void addListenerByEvent(String event);
+
+  void sendEvent(String event, String message);
+
   void destroyConnection();
 }

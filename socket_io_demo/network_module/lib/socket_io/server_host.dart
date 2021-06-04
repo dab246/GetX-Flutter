@@ -29,61 +29,8 @@
 //  3 and <http://www.linshare.org/licenses/LinShare-License_AfferoGPL-v3.pdf> for
 //  the Additional Terms applicable to LinShare software.
 
-import 'package:network_module/socket_io/server_host.dart';
-
-import '../network_module.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
-
-class SocketIOProvider extends NetworkProvider {
-
-  StreamSocket streamSocket = StreamSocket();
-  IO.Socket socket;
-
-  @override
-  void initConnection() {
-    socket = IO.io(
-      ServerHost.URL,
-      IO.OptionBuilder()
-        .setTransports(['websocket'])
-        .build()
-    );
-    socket.connect();
-  }
-
-  @override
-  void addListener() {
-    if (socket != null) {
-      socket.on('connect', (_) {
-        print('Connected socket io');
-        socket.emit('message', 'Connected to Socket IO');
-      });
-
-      socket.on('disconnect', (_) => print('disconnect'));
-    }
-  }
-
-  @override
-  void destroyConnection() {
-    if (socket != null) {
-      socket.dispose();
-    }
-    streamSocket.dispose();
-  }
-
-  @override
-  void addListenerByEvent(String event) {
-    if (socket != null) {
-      socket.on(event, (data) {
-        print(event + ': ${data.toString()}');
-        streamSocket.addResponse(data);
-      });
-    }
-  }
-
-  @override
-  void sendEvent(String event, String message) {
-    if (socket != null) {
-      socket.emit(event, message);
-    }
-  }
+class ServerHost {
+  static const String SERVER_IP = 'http://localhost';
+  static const int SERVER_PORT = 8000;
+  static const String URL = '$SERVER_IP:$SERVER_PORT';
 }
